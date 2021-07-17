@@ -22,23 +22,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          publish_dir: ./dist
-          github_token: ${{ secrets.GH_PAGES_DEPLOY }}
-          user_name: ${{ secrets.MY_USER_NAME }}
-          user_email: ${{ secrets.MY_USER_EMAIL }}
-          commit_message: Update PicX
       
       - name: Gzip
         run: |
           tar -cvf picx.tar ./dist
       
-      - name: Upload to release
-        uses: JasonEtco/upload-to-release@master
-        with:
-          args: picx.tar application/zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAGES_DEPLOY }}
+      - name: SCP
+        run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp ./picx.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:${{ secrets.REMOTE_PATH }}
 
