@@ -33,12 +33,12 @@ jobs:
       
       - name: Gzip
         run: |
-          tar -czvf picx.tar.gz ./dist
+          tar -cvf picx.tar ./dist
       
       - name: Upload to release
         uses: JasonEtco/upload-to-release@master
         with:
-          args: picx.tar.gz application/octet-stream
+          args: picx.tar application/zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
