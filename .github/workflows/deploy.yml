@@ -25,7 +25,7 @@ jobs:
       
       - name: Gzip
         run: |
-          tar -cvf picx.tar ./dist
+          tar -czvf picx.tar.gz ./dist
       
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -34,4 +34,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            picx.tar
+            picx.tar.gz
