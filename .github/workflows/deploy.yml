@@ -27,12 +27,11 @@ jobs:
         run: |
           tar -cvf picx.tar ./dist
       
-      - name: SCP
-        run: |
-          git clone git://github.com/kevinburke/sshpass.git
-          cd sshpass
-          ./configure
-          make && make install
-          cd ..
-          sshpass -p ${{ secrets.SSH_PASSWORD }} scp ./picx.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:${{ secrets.REMOTE_PATH }}
-
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            picx.tar
