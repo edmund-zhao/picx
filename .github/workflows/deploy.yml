@@ -28,5 +28,7 @@ jobs:
           tar -cvf picx.tar ./dist
       
       - name: SCP
-        run: sshpass -p ${{ secrets.SSH_PASSWORD }} scp ./picx.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:${{ secrets.REMOTE_PATH }}
+        run: |
+          apt install sshpass -y
+          sshpass -p ${{ secrets.SSH_PASSWORD }} scp ./picx.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_IP_ADDRESS }}:${{ secrets.REMOTE_PATH }}
 
